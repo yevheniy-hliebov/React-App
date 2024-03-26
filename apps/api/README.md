@@ -32,6 +32,28 @@
 $ npm install
 ```
 
+## DB management commands
+```bash
+# Runs database setup, migration, and seeding processes
+# usually for the first start of docker from the database
+$ npm run db
+
+# Starts the database container.
+$ npm run db:up
+
+# Stops and removes the database container.
+$ npm run db:down
+
+# Initializes a new migration (auto generate client) for the database schema.
+$ npm run db:migrate-init
+
+# Applies pending database migrations.
+$ npm run db:migrate
+
+# Seeds the database with initial data.
+$ npm run db:seed
+```
+
 ## Running the app
 
 ```bash

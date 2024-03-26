@@ -7,9 +7,14 @@
     "turbo": "^1.13.0"
   },
   "scripts": {
+    "db": "turbo run db",
+    "db:up": "turbo run db:up",
+    "db:down": "turbo run db:down",
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "start": "node apps/api/dist"
+    "start": "node apps/api/dist/src/main",
+    "app": "npm run db:up && npm run build && npm run start",
+    "app:first": "npm run db && npm run build && npm run start"
   },
   "keywords": [],
   "author": "yevheniy-hliebov <yevheniy.hliebov@gmail.com>",

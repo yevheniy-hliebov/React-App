@@ -11,6 +11,15 @@
       "outputs": [
         "dist/**"
       ]
+    },
+    "db": {
+      "cache": false
+    },
+    "db:up": {
+      "cache": false
+    },
+    "db:down": {
+      "cache": false
     }
   }
 }
