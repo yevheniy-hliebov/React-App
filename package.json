@@ -1,0 +1,20 @@
+{
+  "name": "monorepo-nestjs-reactjs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "turbo": "^1.13.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "node apps/api/dist"
+  },
+  "keywords": [],
+  "author": "yevheniy-hliebov <yevheniy.hliebov@gmail.com>",
+  "license": "ISC",
+  "workspaces": [
+    "apps/*"
+  ]
+}
