@@ -1,33 +1,39 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from 'react'
+import Header from './components/Header';
+import { TaskListFormProvider } from './context/TaskListFormContext';
+import { store } from './redux/store';
+import { useDispatch } from 'react-redux';
+import { fetchPriorities } from './redux/slice/priorities';
+import { fetchTaskList } from './redux/slice/tasks';
+import { TaskListDeleteFormProvider } from './context/TaskListDeleteFormContext';
+import Board from './components/Board';
+import TaskListForm from './components/popups/TaskListForm';
+import TaskListDeleteForm from './components/popups/TaskListDeleteForm';
 
 function App() {
-  const [greeting, setGreeting] = useState('');
-
-  useEffect(() => {
-    fetch('/api')
-      .then((res) => res.text())
-      .then(setGreeting);
-  }, [])
+  type AppDispatch = typeof store.dispatch;
+  const dispatch = useDispatch<AppDispatch>();
   
+  useEffect(() => {    
+    dispatch(fetchPriorities());
+    dispatch(fetchTaskList());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>{greeting}</h1>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App flex flex-col h-screen">
+      <TaskListFormProvider>
+        <TaskListDeleteFormProvider>
+          <Header />
+          <Board />
+
+          {/* Popups TaskList */}
+          <TaskListForm />
+          <TaskListDeleteForm />
+        </TaskListDeleteFormProvider>
+      </TaskListFormProvider>
+    </div>
+  );
 }
 
 export default App
