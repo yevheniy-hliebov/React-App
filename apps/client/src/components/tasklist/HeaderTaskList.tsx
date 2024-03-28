@@ -1,11 +1,12 @@
 import { icons } from '../icons';
 import ContextMenu, { ContextMenuOption } from '../ContextMenu';
-import { TaskList } from '../../types/tasklist.type';
 import { store } from '../../redux/store';
 import { useDispatch } from 'react-redux';
-import { fetchDeleteTaskList } from '../../redux/slice/tasks';
 import { useTaskListForm } from '../../context/TaskListFormContext';
 import { useTaskListDeleteForm } from '../../context/TaskListDeleteFormContext';
+import { useTaskForm } from '../../context/TaskFormContext';
+import { TaskList } from '../../redux/features/taskLists/types';
+import { deleteTaskList } from '../../redux/features/taskLists/api';
 
 type HeaderTaskListProps = {
   tasklist: TaskList;
@@ -19,19 +20,21 @@ function HeaderTaskList({ tasklist, count_tasks }: HeaderTaskListProps) {
 
   const { openTaskListForm } = useTaskListForm();
   const { openTaskListDeleteForm } = useTaskListDeleteForm();
+  const { openTaskForm } = useTaskForm();
 
   const EditIcon = icons.edit;
   const AddIcon = icons.add;
   const DeleteIcon = icons.delete;
   const OnSelectContextMenu = (option: ContextMenuOption) => {
-    console.log('Selected option:', option);
     if (option.label === 'Edit') {
       openTaskListForm({ title: 'Rename list', tasklist: tasklist, isEditForm: true })
+    } else if (option.label === 'Add new card') {
+      openTaskForm({ tasklist_id: tasklist.id });
     } else if (option.label === 'Delete') {
       if (tasklist.tasks && tasklist.tasks.length > 0) {
         openTaskListDeleteForm(tasklist);
       } else {
-        dispatch(fetchDeleteTaskList({ tasklistId: tasklist.id }))
+        dispatch(deleteTaskList({ id: tasklist.id }))
       }
     }
   }
@@ -57,7 +60,6 @@ function HeaderTaskList({ tasklist, count_tasks }: HeaderTaskListProps) {
       <div className="text-[20px]">{tasklist.name}</div>
       <div className="flex items-center">
         <span className="text-[18px]">{count_tasks}</span>
-
         <ContextMenu options={contextMenuOptions} onSelect={OnSelectContextMenu} />
       </div>
     </div>

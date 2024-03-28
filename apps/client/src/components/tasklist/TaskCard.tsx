@@ -1,52 +1,54 @@
 import { icons } from '../icons'
 import Dropdown, { DropdownOption } from '../Dropdown';
 import ContextMenu, { ContextMenuOption } from '../ContextMenu';
-import { Task } from '../../types/task.type';
 import { formatDate } from '../../utils/format-date';
-import { Priority } from '../../types/priority.type';
 import { useDispatch, useSelector } from 'react-redux';
 import { State, store } from '../../redux/store';
-import { TaskList } from '../../types/tasklist.type';
-import { fetchMoveTask } from '../../redux/slice/tasks';
+import { useTaskForm } from '../../context/TaskFormContext';
+import { Priority } from '../../redux/features/priorities/types';
+import { TaskList } from '../../redux/features/taskLists/types';
+import { deleteTask, updateTask } from '../../redux/features/tasks/api';
+import { Task } from '../../redux/features/tasks/types';
 
 type TaskCardProps = {
   task: Task;
 }
 
 function TaskCard({ task }: TaskCardProps) {
+  const CalendarIcon = icons.calendar;
+
   type AppDispatch = typeof store.dispatch;
   const dispatch = useDispatch<AppDispatch>();
-  const statePriorities = useSelector((state: State) => state.priorities);
-  const stateTaskList = useSelector((state: State) => state.tasks);
-  const CalendarIcon = icons.calendar;
-  let priority = (!statePriorities.isError && statePriorities.data) ? statePriorities.data.find((priority: Priority) => task.priority_id === priority.id) : null;
 
-  let options = (!stateTaskList.fetchTaskList.isError && stateTaskList.data) ? stateTaskList.data
+  const { openTaskForm } = useTaskForm();
+
+  const statePriorities = useSelector((state: State) => state.priorities);
+  const stateTaskLists= useSelector((state: State) => state.tasklists);
+  let priority = statePriorities.priorities.find((priority: Priority) => task.priority_id === priority.id);
+
+  let options = stateTaskLists.taskLists
     .filter((tasklist: TaskList) => task.tasklist_id !== tasklist.id)
-    .map((tasklist: TaskList) => ({ label: tasklist.name, value: tasklist.id }))
-    : [];
+    .map((tasklist: TaskList) => ({ label: tasklist.name, value: tasklist.id }));
 
 
   const handleSelect = (option: DropdownOption) => {
     console.log('Selected option:', option);
-    dispatch(fetchMoveTask({ taskId: task.id, oldTaskListId: task.tasklist_id, tasklistId: Number(option.value) }))
+    dispatch(updateTask({ id: task.id, task: { tasklist_id: Number(option.value) } }))
   };
 
   const EditIcon = icons.edit;
   const DeleteIcon = icons.delete;
   const OnSelectContextMenu = (option: ContextMenuOption) => {
-    console.log('Selected option:', option);
+    if (option.label === 'Edit') {
+      openTaskForm({ task: task, isEditTaskForm: true })
+    } else if (option.label === 'Delete') {
+      dispatch(deleteTask(task.id));
+    }
   }
 
   const contextMenuOptions = [
-    {
-      label: 'Edit',
-      icon: <EditIcon />
-    },
-    {
-      label: 'Delete',
-      icon: <DeleteIcon />
-    },
+    { label: 'Edit', icon: <EditIcon /> },
+    { label: 'Delete', icon: <DeleteIcon /> },
   ]
 
   return (

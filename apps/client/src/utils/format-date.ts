@@ -52,3 +52,7 @@ export function formatDate(inputDate: string | number | Date, mask: string, time
 
   return result;
 }
+
+export function getISODateString(date: string | Date) {
+  return formatDate(date, 'yyyy-MM-dd');
+}

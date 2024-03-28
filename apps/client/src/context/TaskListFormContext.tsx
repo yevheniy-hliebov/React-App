@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { TaskList } from '../types/tasklist.type';
+import { TaskList } from '../redux/features/taskLists/types';
 
 export type TaskListFromProps = {
   title?: string;
@@ -37,7 +37,6 @@ export const TaskListFormProvider: React.FC<TaskListFormProviderProps> = ({ chil
   const [tasklist, setTaskList] = useState<TaskList | undefined>(undefined);
   const [isEditForm, setIsEditForm] = useState<boolean>(false);
 
-  // 
   const openTaskListForm = (props?: TaskListFromProps) => {
     setIsOpen(true);
     setTitle(props?.title);

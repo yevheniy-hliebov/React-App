@@ -9,10 +9,11 @@ export type DropdownOption = {
 type DropdownProps = {
   label: string | null | undefined;
   options: DropdownOption[];
+  className?: string;
   onSelect: (option: DropdownOption) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ label, options, onSelect }) => {
+const Dropdown: React.FC<DropdownProps> = ({ label, className = '', options, onSelect }) => {
   const ArrowDownIcon = icons.arrow_down;
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -43,7 +44,8 @@ const Dropdown: React.FC<DropdownProps> = ({ label, options, onSelect }) => {
     <div ref={ref} className="relative w-full text-left">
       <button
         type="button"
-        className="flex items-center justify-between w-full px-4 py-2 bg-gray-200 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+        className={"flex items-center justify-between w-full px-4 py-2 bg-gray-200 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500 " + className}
+
         onClick={toggleDropdown}
       >
         {label}

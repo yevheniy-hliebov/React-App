@@ -12,8 +12,8 @@ model Task {
   name        String
   description String?   
   due_date    DateTime?
-  priority    Priority  @relation(fields: [priority_id], references: [id])
-  priority_id Int       @default(1)
+  priority    Priority?  @relation(fields: [priority_id], references: [id])
+  priority_id Int?       @default(1)
   tasklist    TaskList  @relation(fields: [tasklist_id], references: [id])
   tasklist_id Int
   created_at   DateTime  @default(now())

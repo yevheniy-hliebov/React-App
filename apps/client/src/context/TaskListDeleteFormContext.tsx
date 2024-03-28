@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { TaskList } from "../types/tasklist.type";
+import { TaskList } from "../redux/features/taskLists/types";
 
 type TaskListDeleteFormType = {
   isOpen: boolean;
@@ -17,7 +17,6 @@ export const useTaskListDeleteForm = () => {
   }
   return context;
 };
-
 
 type TaskListDeleteFormProviderProps = {
   children?: React.ReactNode;

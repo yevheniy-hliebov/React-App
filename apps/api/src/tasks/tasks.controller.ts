@@ -39,7 +39,7 @@ export class TasksController {
   }
 
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.OK)
   async delete(@Param('id') id: number): Promise<{ success: boolean, task: Task}> {
     if (isNaN(id)) {
       throw new HttpException('Invalid id provided', HttpStatus.BAD_REQUEST);

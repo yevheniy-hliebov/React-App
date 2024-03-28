@@ -4,7 +4,7 @@ CREATE TABLE "Task" (
     "name" TEXT NOT NULL,
     "description" TEXT,
     "due_date" TIMESTAMP(3),
-    "priority_id" INTEGER NOT NULL DEFAULT 1,
+    "priority_id" INTEGER DEFAULT 1,
     "tasklist_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE "History" (
 CREATE UNIQUE INDEX "TaskList_name_key" ON "TaskList"("name");
 
 -- AddForeignKey
-ALTER TABLE "Task" ADD CONSTRAINT "Task_priority_id_fkey" FOREIGN KEY ("priority_id") REFERENCES "Priority"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Task" ADD CONSTRAINT "Task_priority_id_fkey" FOREIGN KEY ("priority_id") REFERENCES "Priority"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Task" ADD CONSTRAINT "Task_tasklist_id_fkey" FOREIGN KEY ("tasklist_id") REFERENCES "TaskList"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
