@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { icons } from './icons';
+import { MoreVertIcon } from './icons';
 
 export type ContextMenuOption = {
   label: string;
@@ -12,7 +12,6 @@ interface ContextMenuProps {
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = ({ options, onSelect }) => {
-  const OptionsIcon = icons.more_vert;
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const refMenu = useRef<HTMLDivElement>(null);
@@ -40,10 +39,10 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ options, onSelect }) => {
   }, [ref]);
 
   return (
-    <div ref={ref} className="context-menu relative z-[10] w-full text-left">
+    <div ref={ref} className="context-menu relative w-full text-left">
       <div className="options flex">
         <button type='button' className="options" onClick={toggleContextMenu}>
-          <OptionsIcon />
+          <MoreVertIcon />
         </button>
       </div>
 

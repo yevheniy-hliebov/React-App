@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useTaskForm } from '../../context/TaskFormContext';
-import DefaultPopup from './DefaultPopup';
-import Button from '../Button';
 import { State, store } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import Dropdown, { DropdownOption } from '../Dropdown';
-import { isDate } from '../../utils/check-is-date';
-import { getISODateString } from '../../utils/format-date';
+import { useTaskForm } from '../../context/TaskFormContext';
 import { Priority } from '../../redux/features/priorities/types';
 import { createTask, updateTask } from '../../redux/features/tasks/api';
-import Loader from '../../assets/loader.svg?react'
+
+import DefaultPopup from './DefaultPopup';
+import Button from '../Button';
+import Dropdown, { DropdownOption } from '../Dropdown';
+import { Loader } from '../icons';
+
+import { isDate } from '../../utils/check-is-date';
+import { getISODateString } from '../../utils/format-date';
 
 type TaskState = {
   name: string;
@@ -165,8 +167,8 @@ const TaskCreateForm: React.FunctionComponent = () => {
   }
 
   return (
-    <DefaultPopup title={`${!isEditTaskForm ? 'Create' : 'Edit'} new task`} opened={isOpen} handleClose={handleClose}>
-      <form className="flex flex-col w-[425px] gap-3 px-[35px] py-[20px] max-sm:max-w-[280px]" onSubmit={handleSumbit}>
+    <DefaultPopup title={`${!isEditTaskForm ? 'Create' : 'Edit'} new task`} opened={isOpen} handleClose={handleClose} classNameBody='overflow-y-auto overflow-x-hidden'>
+      <form className="task-form flex flex-col w-[425px] gap-3 px-[35px] py-[20px] max-sm:max-w-[280px]" onSubmit={handleSumbit}>
         <div className="flex flex-col">
           <label htmlFor="task-name" className='font-medium text-[18px]'>Name*</label>
           <input type="text" name="name" id='task-name' value={taskData.name || ''} onChange={handleChangeName} className='border-[1px] border-gray-500 rounded-[5px] text-[18px] px-[10px] py-2 focus:outline-gray-500' />
@@ -180,7 +182,7 @@ const TaskCreateForm: React.FunctionComponent = () => {
           <label htmlFor="task-due_date" className='font-medium text-[18px]'>Due date</label>
           <input type="date" name="due_date" id='task-due_date' value={taskData.due_date || ''} onChange={handleDueDate} className='border-[1px] border-gray-500 rounded-[5px] text-[18px] px-[10px] py-2 focus:outline-gray-500' />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col relative z-[2]">
           <label className='font-medium text-[18px]'>Priority</label>
           <Dropdown
             className='bg-gray-50 border-gray-500'
@@ -188,7 +190,7 @@ const TaskCreateForm: React.FunctionComponent = () => {
         </div>
         {error && <p className="text-red-500 max-w-full">{error}</p>}
         <Button type='submit' className={`${isLoading ? 'pointer-events-none' : 'pointer-events-auto'}`}>
-          <div className="relative">
+          <div className="relative z-0">
             {!isEditTaskForm ? 'Create' : 'Save'}
             <Loader className={`absolute top-1/2 left-full mx-1 -translate-y-1/2 size-6 fill-gray-50 m-0 ${isLoading ? 'opacity-1' : 'opacity-0'} transition-all`} />
           </div>

@@ -1,13 +1,17 @@
+import { State } from '../redux/store';
+import { useSelector } from 'react-redux';
+import { TaskFormProvider } from '../context/TaskFormContext';
+import { TaskPopupProvider } from '../context/TaskPopupContext';
+
+import { TaskList as TaskListType } from '../redux/features/taskLists/types'
+
 import TaskList from './tasklist/TaskList'
 import Container from './Container'
-import { TaskList as TaskListType } from '../redux/features/taskLists/types'
-import { useSelector } from 'react-redux';
-import { State } from '../redux/store';
 import HeaderTaskList from './tasklist/HeaderTaskList';
 import ButtonAddCard from './tasklist/ButtonAddCard';
-import { TaskFormProvider } from '../context/TaskFormContext';
 import TaskForm from './popups/TaskForm';
 import Loader from '../assets/loader.svg?react'
+import TaskPopup from './popups/TaskPopup';
 
 function Board() {
   const stateTaskLists = useSelector((state: State) => state.tasklists);
@@ -37,11 +41,14 @@ function Board() {
                 )
               })}
             </div>
-            <div className="board__column-list flex pb-[188px]">
-              {tasklistsWithTasks.map((tasklist: TaskListType) => {
-                return <TaskList key={tasklist.id} tasklist={tasklist} />
-              })}
-            </div>
+            <TaskPopupProvider>
+              <div className="board__column-list flex pb-[188px]">
+                {tasklistsWithTasks.map((tasklist: TaskListType) => {
+                  return <TaskList key={tasklist.id} tasklist={tasklist} />
+                })}
+              </div>
+              <TaskPopup />
+            </TaskPopupProvider>
           </div>
         </div>
       </Container>

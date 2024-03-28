@@ -1,26 +1,30 @@
-import { icons } from '../icons'
-import Dropdown, { DropdownOption } from '../Dropdown';
-import ContextMenu, { ContextMenuOption } from '../ContextMenu';
-import { formatDate } from '../../utils/format-date';
-import { useDispatch, useSelector } from 'react-redux';
 import { State, store } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Task } from '../../redux/features/tasks/types';
 import { useTaskForm } from '../../context/TaskFormContext';
+import { useTaskPopup } from '../../context/TaskPopupContext';
+
+import { deleteTask, updateTask } from '../../redux/features/tasks/api';
+
 import { Priority } from '../../redux/features/priorities/types';
 import { TaskList } from '../../redux/features/taskLists/types';
-import { deleteTask, updateTask } from '../../redux/features/tasks/api';
-import { Task } from '../../redux/features/tasks/types';
+
+import Dropdown, { DropdownOption } from '../Dropdown';
+import ContextMenu, { ContextMenuOption } from '../ContextMenu';
+import { CalendarIcon, DeleteIcon, EditIcon } from '../icons';
+
+import { formatDate } from '../../utils/format-date';
 
 type TaskCardProps = {
   task: Task;
 }
 
 function TaskCard({ task }: TaskCardProps) {
-  const CalendarIcon = icons.calendar;
-
   type AppDispatch = typeof store.dispatch;
   const dispatch = useDispatch<AppDispatch>();
 
   const { openTaskForm } = useTaskForm();
+  const { openTaskPopup } = useTaskPopup();
 
   const statePriorities = useSelector((state: State) => state.priorities);
   const stateTaskLists= useSelector((state: State) => state.tasklists);
@@ -36,8 +40,6 @@ function TaskCard({ task }: TaskCardProps) {
     dispatch(updateTask({ id: task.id, task: { tasklist_id: Number(option.value) } }))
   };
 
-  const EditIcon = icons.edit;
-  const DeleteIcon = icons.delete;
   const OnSelectContextMenu = (option: ContextMenuOption) => {
     if (option.label === 'Edit') {
       openTaskForm({ task: task, isEditTaskForm: true })
@@ -51,11 +53,16 @@ function TaskCard({ task }: TaskCardProps) {
     { label: 'Delete', icon: <DeleteIcon /> },
   ]
 
+  const handleOpenTask = () => {
+    console.log('Clicked');
+    openTaskPopup(task);
+  }
+
   return (
     <div className='bg-white flex flex-col gap-[16px] items-start border-[1px] px-[15px] py-[20px] rounded-[10px] border-slate-300 shadow-[2px_2px_4px_rgba(0,0,0,0.1)]'>
       <div className="flex w-full justify-between">
         <div className="text-left leading-6 flex flex-col gap-[8px]">
-          <div className="text-[20px]">{task.name}</div>
+          <div className="text-[20px] cursor-pointer" onClick={handleOpenTask}>{task.name}</div>
           <div className="font-medium tracking-wide text-[14px] text-gray-500 leading-7">
             {task.description}
           </div>

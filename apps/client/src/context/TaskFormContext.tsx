@@ -6,7 +6,7 @@ type TaskFormType = {
   tasklist_id?: number;
   task?: Task;
   isEditTaskForm?: boolean;
-  openTaskForm: (props: TaskFromProps) => void;
+  openTaskForm: (props: TaskFormProps) => void;
   closeTaskForm: () => void;
 };
 
@@ -24,7 +24,7 @@ type TaskFormProviderProps = {
   children?: React.ReactNode;
 }
 
-export type TaskFromProps = {
+export type TaskFormProps = {
   tasklist_id?: number;
   task?: Task;
   isEditTaskForm?: boolean;
@@ -36,7 +36,7 @@ export const TaskFormProvider: React.FC<TaskFormProviderProps> = ({ children }) 
   const [task, setTask] = useState<Task | undefined>(undefined);
   const [isEditTaskForm, setIsEditTaskForm] = useState<boolean>(false);
 
-  const openTaskForm = ({ tasklist_id, task, isEditTaskForm }: TaskFromProps) => {
+  const openTaskForm = ({ tasklist_id, task, isEditTaskForm }: TaskFormProps) => {
     setIsOpen(true);
     setTaskList(tasklist_id);
     setTask(task);

@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
+import { State, store } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTaskList } from '../../redux/features/taskLists/api';
+import { useTaskListDeleteForm } from '../../context/TaskListDeleteFormContext';
+
+import { TaskList } from '../../redux/features/taskLists/types';
+
 import DefaultPopup from './DefaultPopup'
 import Button from '../Button';
 import Dropdown, { DropdownOption } from '../Dropdown';
-import { useDispatch, useSelector } from 'react-redux';
-import { State, store } from '../../redux/store';
-import { icons } from '../icons';
-import { useTaskListDeleteForm } from '../../context/TaskListDeleteFormContext';
-import { TaskList } from '../../redux/features/taskLists/types';
-import { deleteTaskList } from '../../redux/features/taskLists/api';
-import Loader from '../../assets/loader.svg?react'
+import { EastIcon, Loader } from '../icons';
 
 function TaskListDeleteForm() {
-  const EastIcon = icons.east;
-
   type AppDispatch = typeof store.dispatch;
   const dispatch = useDispatch<AppDispatch>();
 

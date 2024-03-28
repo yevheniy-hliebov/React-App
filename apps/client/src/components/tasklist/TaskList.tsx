@@ -1,6 +1,8 @@
-import TaskCard from './TaskCard'
 import { TaskList as TaskListType } from '../../redux/features/taskLists/types'
+
 import { Task } from '../../redux/features/tasks/types';
+
+import TaskCard from './TaskCard'
 
 type TaskListProps = {
   tasklist: TaskListType;
