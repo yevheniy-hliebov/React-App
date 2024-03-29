@@ -7,6 +7,31 @@ $ npm install
 ```
 
 ## Running the app
+
+<strong>!!! Before running the app, be sure to install and enable Docker !!!</strong>
+
+## Add Enviroment file
+
+1. Copy the `.env-example` file in directory `apps/api` and rename it to `.env`.
+
+2. Modify the configurations in the `.env` file to suit your environment settings. Ensure the server connects to the database and other necessary configurations.
+
+    Example `.env` file:
+    ```dotenv
+    # Postgres data for connection
+    DATABASE_USERNAME=username
+    DATABASE_PASSWORD=password
+    DATABASE_NAME=taskboard_db
+    DATABASE_HOST=localhost
+    DATABASE_PORT=3080
+
+    CONTAINER_DB_NAME=taskboard_db
+
+    DATABASE_URL=postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+    ```
+
+3. Save the changes made in the `.env` file.
+
 ### With only one command
 ```bash
 # For first start app

@@ -100,19 +100,4 @@ const renderTaskDescription = (task: Task) => {
   );
 }
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const StrongDot: React.FC<Props> = ({ children }) => {
-  return (
-    <span className='relative pl-[16px]'>
-      <span className={`absolute top-1/2 left-0 -translate-y-1/2 inline-flex self-center p-[1px] border-[1px] border-black rounded-full`}>
-        <span className={`inline-flex size-2 bg-black rounded-full`} />
-      </span>
-      {children}
-    </span>
-  );
-};
-
 export default TaskPopup
