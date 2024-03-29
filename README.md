@@ -10,7 +10,7 @@ $ npm install
 
 <strong>!!! Before running the app, be sure to install and enable Docker !!!</strong>
 
-## Add Enviroment file
+## Add Environment file
 
 1. Copy the `.env-example` file in directory `apps/api` and rename it to `.env`.
 
