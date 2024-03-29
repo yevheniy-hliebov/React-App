@@ -11,7 +11,6 @@ export class HttpExceptionFilter extends BaseExceptionFilter {
 
     const { status, message } = this.getExceptionDetails(exception);
     let errors = null;
-    console.log(exception);
     
     if ('response' in exception && typeof exception['response'] === 'object' && 'message' in exception['response']) {
       errors = exception['response'].message;

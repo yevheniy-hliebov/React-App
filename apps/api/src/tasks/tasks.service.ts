@@ -30,8 +30,6 @@ export class TasksService {
 
   async getById(id: number): Promise<Task> {
     const task = await this.findTaskById(id);
-    console.log(task);
-    
     return this.deleteFieldTaskList(task);
   }
 
@@ -169,7 +167,6 @@ export class TasksService {
   }
 
   private handleError(error: unknown): HttpException {
-    console.log(error);
     if (error instanceof HttpException) {
       throw error;
     } else {

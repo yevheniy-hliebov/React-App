@@ -36,8 +36,6 @@ const tasksSlice = createSlice({
         }
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
-        console.log(action);
-        
         const index = state.tasks.findIndex((task) => task.id === action.payload);
         if (index !== -1) {
           state.tasks.splice(index, 1);

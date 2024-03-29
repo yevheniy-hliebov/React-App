@@ -105,7 +105,7 @@ const TaskCreateForm: React.FunctionComponent = () => {
       setError('Task name cannot be empty.');
       return false;
     }
-    if (taskName.length < 3 || taskName.length > 25) {
+    if (taskName.length < 3) {
       setError('Task name must contain at least 3 characters.');
       return false;
     }

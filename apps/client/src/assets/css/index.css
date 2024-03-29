@@ -22,13 +22,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.delete__grid {
-  grid-template-columns: 1fr 1fr minmax(0, 256px);
-}
-
-.board-container {
-  /* overflow-x: auto; */
-  /* overflow-y: hidden; */
-  /* padding-bottom: 190px; */
-}

@@ -1,8 +1,10 @@
 import React from 'react'
 import { useTaskListForm } from '../context/TaskListFormContext'
+
 import Container from './Container'
 import Button from './Button'
-import { AddIcon, ReloadIcon } from './icons'
+import { AddIcon } from './icons'
+import History from './history/History'
 
 const Header: React.FunctionComponent = () => {
   const { openTaskListForm } = useTaskListForm();
@@ -17,7 +19,7 @@ const Header: React.FunctionComponent = () => {
         <h1 className="header__title font-bold text-[35px]">My Task Board</h1>
 
         <div className="header__buttons flex items-center justify-between gap-[10px] max-[335px]:flex-col">
-          <Button icon={ReloadIcon} variant='border'>History</Button>
+          <History />
           <Button icon={AddIcon} onClick={handelClickCreateList}>Create new list</Button>
         </div>
       </Container>

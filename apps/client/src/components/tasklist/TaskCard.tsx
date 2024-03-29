@@ -36,7 +36,6 @@ function TaskCard({ task }: TaskCardProps) {
 
 
   const handleSelect = (option: DropdownOption) => {
-    console.log('Selected option:', option);
     dispatch(updateTask({ id: task.id, task: { tasklist_id: Number(option.value) } }))
   };
 
@@ -54,7 +53,6 @@ function TaskCard({ task }: TaskCardProps) {
   ]
 
   const handleOpenTask = () => {
-    console.log('Clicked');
     openTaskPopup(task);
   }
 

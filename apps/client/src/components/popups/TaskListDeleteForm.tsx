@@ -28,7 +28,6 @@ function TaskListDeleteForm() {
 
 
   const handleSelect = (option: DropdownOption) => {
-    console.log('Selected option:', option);
     setSelectedTaskList(option);
     setError('');
   };
@@ -88,21 +87,21 @@ function TaskListDeleteForm() {
 
   return (
     <DefaultPopup title='Delete or Move tasks' opened={isOpen} handleClose={handleCancel} >
-      <form className='flex flex-col -max-w-[700px] gap-3 px-[35px] py-[20px] max-sm:max-w-[280px]' onSubmit={handleSumbit}>
+      <form className='flex flex-col max-w-[700px] gap-3 px-[35px] py-[20px]' onSubmit={handleSumbit}>
         <div className="flex items-center mb-4">
           <input onChange={handleChangeCheckbox} type="checkbox" checked={isDeleteTasks} className="size-5 text-gray-600 bg-gray-100 border-gray-300 rounded focus:outline-gray-500 focus:ring-2" />
           <label className="ms-2 text-[14px] font-medium text-gray-900">Delete all tasks in the <span className='line-through'>{tasklist?.name}</span> list without moving them to another list</label>
         </div>
         <div className={`grid items-center ${isDeleteTasks ? 'opacity-50 pointer-events-none' : ''}`}>
           <div className="text-[14px] mb-3">Or select a new list for moving task there</div>
-          <div className="delete__grid grid">
+          <div className="grid grid-cols-[1fr_1fr_minmax(0,256px)] max-sm:hidden">
             <div className='text-[12px]'>This list will be deleted:</div>
             <div></div>
             <div className='text-[12px]'>Move existing tasks to:</div>
           </div>
-          <div className="delete__grid grid items-center">
+          <div className="grid grid-cols-[1fr_1fr_minmax(0,256px)] items-center max-sm:grid-cols-1">
             <div className='font-medium text-[16px] min-w-[70px] line-through p-2 bg-slate-100 rounded-md text-slate-500'>{tasklist?.name}</div>
-            <EastIcon className='justify-self-end mr-[20px]' />
+            <EastIcon className='justify-self-end m-[20px] max-sm:rotate-90 max-sm:justify-self-center' />
             <Dropdown label={selectedTaskList ? selectedTaskList.label : 'Select new list'} options={options} onSelect={handleSelect} />
           </div>
         </div>
